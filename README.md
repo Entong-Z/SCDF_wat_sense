@@ -32,16 +32,26 @@ python main.py API_KEY_URL.txt PATH_TO_AUDIO_FILE
 ````
 
 ## Description
-Wat-Sense is a product to reduce the workload of operation centres in the event of multiple calls to the same emergency by identifying repeated calls.
+WATSENSE is a product aimed to reduce the workload of SCDF’s operation centre by identifying calls reporting on the same emergency situation, providing automated responses, eliminating the need for operators’ responses thus reducing operators’ workload.
 
-When a call is received by the operation centre, it is recorded into an audio file.
+When a call is received by the operation centre, it is automatically recorded as an audio file. WATSENSE technology will then process the audio in a series of steps.
 
-The audio file will go through the IBM Speech to Text model and be transcribed into text. 
+Firstly, IBM Speech to Text model will transcribe the audio recording into text.
 
-The text generated will then go through the IBM Natural Language Understanding model to identify a list of keywords in the call.
+Secondly, IBM Natural Language Understanding model will identify a set of keywords from the text.
 
-Using the list of keywords, Wat-Sense will run a Cosine-similarity check against previous calls to identify calls relating to the same emergency.
+Thirdly, a Cosine-similarity check is executed on the set of keywords, against previous calls, identifying calls of the same emergency.
 
-Similar calls will be grouped together under the same Event ID and be given a type of repeated.
+Fourthly, similar calls will be grouped as the same Event ID, intepreted as repeat calls.
 
-Repeated calls may be automatically replied to to reduce the workload of operation centres.
+Lastly, identified repeat calls will receive automated responses, eliminating the need for operators to answer the call, reducing operator workloads.
+
+## Tests
+The table below shows an the dataframe printed after running WATSENSE on the test audio provided in the Test Audio/ folder
+
+![dataframe](mytable.png)
+
+The first entry in the table is a call regarding a fire in Queenstown.
+
+The second, third and fourth entry in the table all relate to the same event, an unconscious man in Utown. 
+Therefore only the second entry is recorded as new while the third and fourth entry is recorded as repeated and are given the same Event ID as the second entry. 
