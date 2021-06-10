@@ -2,6 +2,7 @@ import sys
 import math
 import pandas as pd
 from collections import Counter
+import datetime
 
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson import SpeechToTextV1
@@ -69,6 +70,9 @@ def main():
     #get the dataframe from pickle file
     df = pd.read_pickle("df.pkl")
 
+    #get current time
+    time = datetime.datetime.now().strftime("%X")
+
     #get the models
     speech_to_text = getSTTmodel(Lines[0], Lines[1])
     natural_language_understanding = getNLPmodel(Lines[2], Lines[3])
@@ -79,16 +83,17 @@ def main():
 
     #check if audio is new or repeated
     event_type = "new"
+    event_id = len(df)
     if len(df) != 0:
         # compare each row
         for index, row in df.iterrows():
-            if counter_cosine_similarity(keywordList, row["keywords"]) > 0.6:
+            if counter_cosine_similarity(keywordList, row["Keywords"]) > 0.6:
                 event_type = "repeated"
-                #event_id = row["event_id"]
+                event_id = row["Event ID"]
                 break
 
     # append new row
-    row = [keywordList, event_type]
+    row = [time, keywordList, event_type, event_id]
     df.loc[len(df)] = row       
 
 

@@ -8,7 +8,7 @@ from datetime import datetime
 #                             "predicted_event_ID",
 #                             "action"])
 
-df = pd.DataFrame(columns = ["keywords", "type"])
+df = pd.DataFrame(columns = ["Time", "Keywords", "Type", "Event ID"])
 
 print(df)
 df.to_pickle("df.pkl")
