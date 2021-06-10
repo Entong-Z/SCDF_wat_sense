@@ -1,0 +1,4 @@
+speech to text API Key
+speech to text URL
+Natural Language API Key
+Natural Language URL
